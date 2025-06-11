@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unsubscribe</title>
+</head>
+<body>
+    <h2>
+        {% if status == "success" %}
+            ✅ You’ve been successfully unsubscribed.
+        {% else %}
+            ❌ Invalid or already unsubscribed.
+        {% endif %}
+    </h2>
+
+    <a href="/">Go back to Homepage</a>
+</body>
+</html>
