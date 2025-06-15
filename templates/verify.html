@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Verification</title>
+</head>
+<body>
+    {% if success %}
+        <h2>✅ Your email has been verified successfully!</h2>
+    {% else %}
+        <h2>❌ Verification failed. Invalid code or email.</h2>
+    {% endif %}
+    <a href="/">Go back to homepage</a>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- Final submission trigger -->
+<html>
+<head>
+    <title>🗓️ Tasks Scheduler</title>
+    <style>
+        body { font-family: Arial; margin: 2rem; background: #f9f9f9; }
+        h1 { color: #444; }
+        form { margin-bottom: 1rem; }
+        input[type="text"], input[type="email"] {
+            padding: 8px; width: 300px; margin-right: 10px;
+            border: 1px solid #ccc; border-radius: 4px;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #4CAF50; color: white;
+            border: none; border-radius: 4px; cursor: pointer;
+        }
+        ul { list-style: none; padding: 0; }
+        li {
+            background: #fff;
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .completed { text-decoration: line-through; color: gray; }
+    </style>
+</head>
+<body>
+    <h1>🗓️ Task Scheduler</h1>
+
+    <!-- Task input form -->
+    <form method="POST" action="/">
+        <input type="text" name="task_name" placeholder="Add a task..." required />
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Tasks</h2>
+    {% if tasks %}
+        <ul>
+        {% for task in tasks %}
+            <li>
+                <span class="{{ 'completed' if task.completed }}">{{ task.name }}</span>
+                <form method="POST" action="/toggle/{{ task.id }}" style="display:inline;">
+                    <button type="submit">
+                        {% if task.completed %}Undo{% else %}Done{% endif %}
+                    </button>
+                </form>
+                <form method="POST" action="/delete/{{ task.id }}" style="display:inline;">
+                    <button style="background:red;">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tasks added yet.</p>
+    {% endif %}
+
+    <hr>
+    <h2>📧 Subscribe for Task Reminders</h2>
+    <form method="POST" action="/subscribe">
+        <input type="email" name="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe</button>
+    </form>
+
+    {% if verify_link %}
+        <p>Click this link to verify your email:</p>
+        <a href="{{ verify_link }}">{{ verify_link }}</a>
+    {% endif %}
+</body>
+</html>
